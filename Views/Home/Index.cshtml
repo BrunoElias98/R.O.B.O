@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row text-center">
+            <h1>R.O.B.O</h1>
+            <p>
+                <h3>
+                    (Robô Operacional Binariamente Orientado)<br>
+                    Bruno Elias de Souza<br>
+                    Teste para Desenvolvedor Júnior<br>
+                    06/09/2018<br>
+                    Altere os estados possíveis do ROBO
+                </h3>
+            </p>
+        </div>
+
+
+        <div class="row text-center">
+            <h1>Digite um nome para o R.O.B.O</h1>
+            <div class="col-lg-3 col-md-offset-4">
+                <div class="input-group">
+                    <input type="text" name="name" id="name" class="form-control">
+                    <span class="input-group-btn">
+                        <input type="button" class="btn btn-info" id="saveName" value="Save" />
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <h1>Cabeça</h1>
+            <div class="col-lg-8 col-md-offset-2">
+                <div class="col-lg-6">
+                    <h3>Rotação</h3>
+                    <h5><b>Estado:</b></h5>
+                    <div class="form-group">
+                        <select class="form-control" id="rotacaoCabeca">
+                            <option value="1">Rotação -90º</option>
+                            <option value="2">Rotação -45º</option>
+                            <option value="3" selected>Em Repouso</option>
+                            <option value="4">Rotação 45º</option>
+                            <option value="5">Rotação 90º</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <h3>Inclinação</h3>
+                    <h5><b>Estado:</b></h5>
+                    <div class="form-group">
+                        <select class="form-control" id="inclinacaoCabeca">
+                            <option value="1">Para Cima</option>
+                            <option value="2" selected>Em Repouso</option>
+                            <option value="3">Para Baixo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <h1>Braço Esquerdo</h1>
+            <div class="col-lg-8 col-md-offset-2">
+                <div class="col-lg-6">
+                    <h3>Cotovelo</h3>
+                    <h5><b>Estado:</b></h5>
+                    <div class="form-group">
+                        <select class="form-control" id="cotoveloBracoEsq">
+                            <option value="1" selected>Em Repouso</option>
+                            <option value="2">Levemente Contraído</option>
+                            <option value="3">Contraído</option>
+                            <option value="4">Fortemente Contraído</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <h3>Pulso</h3>
+                    <h5><b>Estado:</b></h5>
+                    <div class="form-group">
+                        <select class="form-control" id="pulsoBracoEsq">
+                            <option value="1">Rotação para -90º</option>
+                            <option value="2">Rotação para -45º</option>
+                            <option value="3" selected>Em Repouso</option>
+                            <option value="4">Rotação para 45º</option>
+                            <option value="5">Rotação para 90º</option>
+                            <option value="6">Rotação para 135º</option>
+                            <option value="7">Rotação para 180º</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <h1>Braço Direito</h1>
+            <div class="col-lg-8 col-md-offset-2">
+                <div class="col-lg-6">
+                    <h3>Cotovelo</h3>
+                    <h5><b>Estado:</b></h5>
+                    <div class="form-group">
+                        <select class="form-control" id="cotoveloBracoDir">
+                            <option value="1" selected>Em Repouso</option>
+                            <option value="2">Levemente Contraído</option>
+                            <option value="3">Contraído</option>
+                            <option value="4">Fortemente Contraído</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <h3>Pulso</h3>
+                    <h5><b>Estado:</b></h5>
+                    <div class="form-group">
+                        <select class="form-control" id="pulsoBracoDir">
+                            <option value="1">Rotação para -90º</option>
+                            <option value="2">Rotação para -45º</option>
+                            <option value="3" selected>Em Repouso</option>
+                            <option value="4">Rotação para 45º</option>
+                            <option value="5">Rotação para 90º</option>
+                            <option value="6">Rotação para 135º</option>
+                            <option value="7">Rotação para 180º</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+
+        $('#saveName').click(function () {
+            json = montaRobo();
+            consomeApi(json);
+        });
+
+        $('#inclinacaoCabeca').on('change', function () {
+            json = montaRobo();
+            consomeApi(json);
+        });
+
+        $('#rotacaoCabeca').on('change', function () {
+            if ($('#inclinacaoCabeca').val() == 1 || $('#inclinacaoCabeca').val() == 2) {
+                json = montaRobo();
+                consomeApi(json);
+            } else {
+                alert('Você não pode completar esta ação, por favor, verifique se a inclinação da cabeça do robo está para cima ou em repouso');
+                $('#rotacaoCabeca').val(3);
+            }
+        });
+
+        $('#cotoveloBracoEsq').on('change', function () {
+            json = montaRobo();
+            consomeApi(json);
+        });
+
+        $('#pulsoBracoEsq').on('change', function () {
+            if ($('#cotoveloBracoEsq').val() == 4) {
+                json = montaRobo();
+                consomeApi(json);
+            } else {
+                alert('Você não pode completar esta ação, por favor, verifique se o cotovelo do robo está fortemente contraído');
+                $('#pulsoBracoEsq').val(3);
+            }
+
+        });
+
+        $('#cotoveloBracoDir').on('change', function () {
+            json = montaRobo();
+            consomeApi(json);
+        });
+
+        $('#pulsoBracoDir').on('change', function () {
+            if ($('#cotoveloBracoDir').val() == 4) {
+                json = montaRobo();
+                consomeApi(json);
+            } else {
+                alert('Você não pode completar esta ação, por favor, verifique se o cotovelo do robo está fortemente contraído');
+                $('#pulsoBracoDir').val(3);
+            }
+
+        });
+
+        function montaRobo() {
+            var json = {
+                Name : $("#name").val(),
+                CabecaInclinacao: $("#inclinacaoCabeca").val(),
+                CabecaRotacao : $("#rotacaoCabeca").val(),
+                BracoEsquerdoCotovelo : $("#cotoveloBracoEsq").val(),
+                BracoEsquerdoPulso : $("#pulsoBracoEsq").val(),
+                BracoDireitoCotovelo :  $("#cotoveloBracoDir").val(),
+                BracoDireitoPulso : $("#pulsoBracoDir").val()
+            }
+
+            return json;
+        }
+
+        function consomeApi(json) {
+            console.log(json);
+            const link = 'http://localhost:50888/api/robo';
+
+            $.ajax({
+                url: link,
+                type: "post",
+                data: json,
+                success: (data) => {
+                    console.log('data', data);
+                },
+                error: (xhr, textStatus) => {
+                    console.log('erro', xhr, textStatus);
+                    alert('Não foi possível conectar com a API')
+                }
+            });
+        }
+
+
+    </script>
+}
